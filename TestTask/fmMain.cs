@@ -16,7 +16,7 @@ namespace TestTask
     {
         int TickCnt;
 
-        Firm firm = new Firm();
+        Firm firm;
 
         public fmMain()
         {
@@ -25,6 +25,7 @@ namespace TestTask
 
         private void btnSimulation_Click(object sender, EventArgs e)
         {
+            firm = new Firm();
             TaskTimer.Enabled = true;
             TickCnt = 0;
         }
@@ -146,7 +147,7 @@ namespace TestTask
                 }
                 else
                 {
-                    freelancer += TaskCount;
+                    freelancer++;
                 }
 
                 cnt--;
