@@ -133,21 +133,20 @@ namespace TestTask
             int TaskCount = rnd.Next(1, 2);
             int cnt = TaskCount;
             int TaskForStaff = rnd.Next(1,6);
+            int StaffID;
 
             while (cnt > 0)
             {
-                for (int x = 0; x < StaffCount; x++)
+                StaffID = rnd.Next(1, StaffCount);
+
+                if (((Staff[StaffID, 0] == TaskForStaff) | (Staff[StaffID, 1] == TaskForStaff))
+                      && (Staff[StaffID, 4] == 0))
                 {
-                    if (((Staff[x, 0] == TaskForStaff) | (Staff[x, 1] == TaskForStaff))
-                        && (Staff[x, 4] == 0))
-                    {
-                        Staff[x, 4] += TaskCount;
-                        continue;
-                    }
-                    else
-                    {
-                        freelancer += TaskCount;
-                    }
+                    Staff[StaffID, 4] += TaskCount;
+                }
+                else
+                {
+                    freelancer += TaskCount;
                 }
 
                 cnt--;
@@ -232,10 +231,14 @@ namespace TestTask
                     writeData.WriteLine(data);
                 }
 
-                data = String.Format("\r\nФрилансер\t   -//-   \t-//-\t{0}\t{1}",
-                                     freelancer, freelancer * 10);
+                if (freelancer > 0)
+                {
+                    data = String.Format("\r\nФрилансер\t   -//-   \t-//-\t{0}\t{1}",
+                                         freelancer, freelancer * 10);
 
-                writeData.WriteLine(data);
+                    writeData.WriteLine(data);
+                }
+
                 writeData.Close();      // закриваємо поток
             }
             catch (IOException ex)
